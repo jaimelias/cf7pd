@@ -1,0 +1,82 @@
+<form data-id="cf7pd">
+<table class="widefat">
+<tbody>
+<tr>
+    <th scope="row">
+        <label for="cf7pdselect">Pipedrive Fields</label>
+    </th>
+    <td>
+        <select name="cf7pdselect" id="cf7pdselect">
+            <option>--</option>
+        </select>
+    </td>
+</tr>
+
+<tr>
+    <th scope="row">Required</th>
+    <td>
+        <fieldset>
+            <legend class="screen-reader-text">Required</legend>
+            <label>
+                <input type="checkbox" name="required"> Yes</label>
+        </fieldset>
+    </td>
+</tr>
+
+<tr class="hidden showdatepicker">
+    <th scope="row">Date Picker</th>
+    <td>
+        <fieldset>
+            <legend class="screen-reader-text">Date Picker</legend>
+            <label>
+                <input type="checkbox" name="cf7pd_datepicker">Yes</label>
+        </fieldset>
+    </td>
+</tr>
+
+<tr>
+    <th scope="row">
+        <label for="tag-generator-panel-text-name">Name</label>
+    </th>
+    <td>
+        <input type="text" name="name" class="tg-name oneline" id="tag-generator-panel-text-name" readonly>
+    </td>
+</tr>
+
+<tr class="showoptions hidden">
+    <th scope="row">Options</th>
+    <td>
+        <fieldset>
+            <legend class="screen-reader-text">Options</legend>
+            <textarea name="values" class="values" id="tag-generator-panel-menu-values" readonly></textarea>
+            <label for="tag-generator-panel-menu-values">Field Options</span>
+            </label>
+        </fieldset>
+    </td>
+</tr>
+
+<tr>
+    <th scope="row">
+        <label for="tag-generator-panel-text-id">Id attribute</label>
+    </th>
+    <td>
+        <input type="text" name="id" class="idvalue oneline option" id="tag-generator-panel-text-id">
+    </td>
+</tr>
+
+<tr>
+    <th scope="row">
+        <label for="tag-generator-panel-text-class">Class attribute</label>
+    </th>
+    <td>
+        <input type="text" name="class" class="classvalue oneline option" id="tag-generator-panel-text-class">
+    </td>
+</tr>
+</tbody>
+</table>
+</form>
+
+<div class="insert-box clearfix">
+	<p><input type="text" name="text" class="tag code fullwidth" readonly="readonly"></p>
+	<p><input type="button" class="button button-primary add-tag" value="Insert Tag"></p>
+</div>

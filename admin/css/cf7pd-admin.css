@@ -1,0 +1,24 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+.PIPEDRIVE_button
+ {
+	background-color: #666;
+	display: inline-block;
+	color: #fff;
+	line-height: 26px;
+	text-decoration: none;
+	padding: 0 8px;
+	text-transform: uppercase;
+	font-size: 12px;
+	margin: 2px;
+ }
+ .PIPEDRIVE_button:hover, .PIPEDRIVE_button:visited
+ {
+	color: #fff;
+ }
+.fullwidth
+ {
+	width: 100%;
+ }
