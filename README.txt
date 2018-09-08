@@ -1,4 +1,4 @@
-# CF7PD (Wordpress Contact Form 7 to Pipedrive)
+# CF7PD
 
 CF7PD is SALES optimized integration plugin for Pipedrive.
 
