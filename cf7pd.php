@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://jaimelias.com/
+ * @link              https://github.com/jaimelias/cf7pd
  * @since             1.0.0
  * @package           Cf7pd
  *
  * @wordpress-plugin
- * Plugin Name:       CF7 to Pipedrive
- * Plugin URI:        http://jaimelias.com/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin Name:       CF7PD (Marketing Optimize CF7 to Pipedrive)
+ * Plugin URI:        https://github.com/jaimelias/cf7pd
+ * Description:       Create deals, contacts and track conversions from email marketing campaigns, organic referrals, Adwords and social media in Pipedrive.
  * Version:           1.0.0
  * Author:            jaimelias
- * Author URI:        http://jaimelias.com/
+ * Author URI:        https://jaimelias.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       cf7pd
