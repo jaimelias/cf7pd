@@ -177,17 +177,27 @@ class Cf7pd_Public {
 		return $form;		
 	}
 	
-	public static function recaptcha()
+	public static function recaptcha($attr)
 	{	
 		$site_key = '';
 		$output = '';
+		$label = __('Send Request', 'cf7pd');
 		
 		if(get_option('captcha_site_key') != '')
 		{
 			$site_key = get_option('captcha_site_key');
 		}
 		
-		$output .= '<button class="g-recaptcha strong uppercase pure-button pure-button pure-button-primary" data-badge="bottomleft" data-sitekey="'.esc_html($site_key).'" data-callback="pipedrive_submit">'.esc_html(__('Send Request', 'cf7pd')).'</button>';
+		if(is_array($attr))
+		{
+			if(count($attr) > 0)
+			{
+				$label = $attr[0];
+			}			
+		}
+
+		
+		$output .= '<button class="g-recaptcha strong uppercase pure-button pure-button pure-button-primary" data-badge="bottomleft" data-sitekey="'.esc_html($site_key).'" data-callback="pipedrive_submit">'.esc_html($label).'</button>';
 		
 		$output .= '<div class="hidden"><input type="text" name="response" /><input type="text" name="remote-ip" value="'.esc_html(Cf7pd_Public::get_client_ip()).'" /></div>';
 		

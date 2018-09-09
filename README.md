@@ -26,6 +26,8 @@ CF7PD use Cookies to store key decision making data until the form is submitted.
 - Total time of site (total  visits)
 - Time on site (last visit)
 
+CF7PD is integrated with Google's Invisible reCAPTCHA. [Get Your Site Key and Secret Key](https://www.google.com/recaptcha/admin)
+
 ## Available Add-ons
 
 ### Date Picker:

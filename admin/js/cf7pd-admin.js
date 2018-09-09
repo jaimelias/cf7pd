@@ -9,6 +9,7 @@
 			console.log();
 			var cf7pdfields = JSON.parse(JSON.stringify(cf7pd_fields()));
 			var cf7pdpanel = $("<div>").attr({"id": "cf7pdpanel", "class": "large hidden"}).text("PIPEDRIVE Leads - Tag Panel");
+			cf7pdform_recaptcha();
 			cf7pdform_button();
 			cf7pdform_builder(cf7pdfields, cf7pdform, cf7pdpanel);
 			cf7pdform_actions(cf7pdfields, cf7pdform);
@@ -22,6 +23,15 @@
 			"href": "#TB_inline?width=400&height=400&inlineId=cf7pdpanel"}).text("Pipedrive Fields");
 		$("#tag-generator-list").prepend(cf7pdbutton);	
 	}
+	
+	function cf7pdform_recaptcha()
+	{
+		var cf7pdsubmit = $("<a>").attr({"class": "PIPEDRIVE_button",
+			"title": "Secure Submit Button",
+			"href": "#"}).text("Secure Submit");
+			$("#tag-generator-list").prepend(cf7pdsubmit);	
+	}
+	
 	
 	function cf7pdform_builder(cf7pdfields, cf7pdform, cf7pdpanel)
 	{
