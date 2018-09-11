@@ -10,6 +10,8 @@
 		pipedrive_param();
 		pipedrive_id();
 		pipedrive_cookies();
+		responsive_datepicker();
+		responsive_timepicker();
 	});
 
 	function pipedrive_cookies()
@@ -45,7 +47,7 @@
 	
 	function pipedrive_id(){
 		
-		$('input.id').each(function(){
+		$('.wpcf7-form').find('input.id').each(function(){
 			if(this.id != '')
 			{	
 				if($('[data-id="'+this.id+'"]').text() != '')
@@ -65,7 +67,7 @@
 	{
 		var urlParams = new URLSearchParams(window.location.search);
 		
-		$('input.param').each(function(){
+		$('.wpcf7-form').find('input.param').each(function(){
 			if(this.id != '')
 			{
 				if(urlParams.get(this.id) != '')
@@ -83,7 +85,7 @@
 	
 	function pipedrive_lang(lang)
 	{
-		$('input.lang').each(function(){
+		$('.wpcf7-form').find('input.lang').each(function(){
 			$(this).val(lang);
 			console.log('lang: '+ $(this).val());
 		});	
@@ -107,7 +109,7 @@
 	
 	function pipedrive_country_options(data)
 	{
-		$('.countrylist').each(function() {
+		$('.wpcf7-form').find('.countrylist').each(function() {
 			for (var x = 0; x < data.length; x++) 
 			{
 				$(this).append('<option value=' + data[x][0] + '>' + data[x][1] + '</option>');
@@ -115,12 +117,75 @@
 		});		
 	}
 	
+	function responsive_datepicker()
+	{
+		$('.wpcf7-form').find('input.datepicker').each(function()
+		{	
+			var args = {};
+			args.format = 'yyyy-mm-dd';
+			args.container = '#cf7pd-datepicker';
+			
+			if($(this).attr('type') == 'text')
+			{
+				$(this).pickadate(args);
+			}
+			else if($(this).attr('type') == 'date')
+			{
+				$(this).attr({'type': 'text'});
+				$(this).pickadate(args);
+			}
+		});		
+	}
+
+
+	function responsive_timepicker()
+	{
+		var args = {};
+		args.container = '#cf7pd-timepicker';
+		
+		$('.wpcf7-form').find('input.timepicker').each(function()
+		{
+			$(this).pickatime(args);
+		});		
+	}	
+	
 })( jQuery );
 
 function pipedrive_submit($token)
 {
-	$('input[name="response"]').val($token);
-	console.log($('.wpcf7-form').serializeArray());
-	$('.wpcf7-form').submit();
-	grecaptcha.reset();
+	var exclude = ['country_code3', 'is_eu', 'country_tld', 'languages', 'country_flag', 'geoname_id', 'time_zone_current_time', 'time_zone_dst_savings', 'time_zone_is_dst'];
+	
+	$.getJSON('https://api.ipgeolocation.io/ipgeo?apiKey='+ipgeolocation_api(), function(data) {
+	  
+		var obj = {};
+
+		for(var k in data)
+		{
+		  if(typeof data[k] !== 'object')
+		  {
+			  if(exclude.indexOf(k) == -1)
+			  {
+				obj[k] = data[k];
+				$('input.'+k).val(data[k]);
+			  }
+		  }
+		  else
+		  {
+			  for(var sk in data[k])
+			  {
+				  if(exclude.indexOf(k+'_'+sk) == -1)
+				  {
+					obj[k+'_'+sk] = data[k][sk];
+					$('input.'+k+'_'+sk).val(data[k][sk]);
+				  }	   
+			  }
+		  }
+		}
+	}).always(function(){
+
+		$('input[name="response"]').val($token);
+		console.log($('.wpcf7-form').serializeArray());
+		$('.wpcf7-form').submit();
+		grecaptcha.reset();
+	});
 }

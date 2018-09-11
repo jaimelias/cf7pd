@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CF7PD (Marketing Optimize CF7 to Pipedrive)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-10 00:42+0000\n"
+"PO-Revision-Date: 2018-09-10 00:42+0000\n"
+"Last-Translator: Jaimelías <jaime@panamajethub.com>\n"
+"Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: admin/class-cf7pd-settings.php:24
+msgid "Pipedrive"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:31
+msgid "Token"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:39
+msgid "Enable Deals"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:47
+msgid "Days to Close Deals"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:55
+msgid "Adwords Conversion Key"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:64
+msgid "Recaptcha Site Key"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:72
+msgid "Recaptcha Secret Key"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:80
+msgid "Livechat License"
+msgstr ""
+
+#: admin/class-cf7pd-settings.php:182
+msgid "Invalid or Empty Pipedrive Token"
+msgstr ""
+
+#: public/class-cf7pd-public.php:159
+msgid "Invalid Recaptcha"
+msgstr ""
+
+#: public/class-cf7pd-public.php:167
+msgid "remote-ip or response not fount in form"
+msgstr ""
+
+#: public/class-cf7pd-public.php:184
+msgid "Send request"
+msgstr "Enviar solicitud"
+
+#. Name of the plugin
+msgid "CF7PD (Marketing Optimize CF7 to Pipedrive)"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Create deals, contacts and track conversions from email marketing campaigns, "
+"organic referrals, Adwords and social media in Pipedrive."
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/jaimelias/cf7pd"
+msgstr ""
+
+#. Author of the plugin
+msgid "jaimelias"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://jaimelias.com/"
+msgstr ""

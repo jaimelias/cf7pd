@@ -28,8 +28,14 @@
 	{
 		var cf7pdsubmit = $("<a>").attr({"class": "PIPEDRIVE_button",
 			"title": "Secure Submit Button",
-			"href": "#"}).text("Secure Submit");
-			$("#tag-generator-list").prepend(cf7pdsubmit);	
+			"href": "#wpcf7-form"}).text("Secure Submit");
+			$("#tag-generator-list").prepend(cf7pdsubmit);
+			
+			$(cf7pdsubmit).click(function(e){
+				wpcf7.taggen.insert('[recaptcha_button "Submit"]');
+				return false;
+			});
+			
 	}
 	
 	
