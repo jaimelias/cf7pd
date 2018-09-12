@@ -61,11 +61,46 @@ The inputs below should be hidden inside a DIV tag:
 
 ```<div style="display: hidden"><input /><input /></div>```
 
-### Landing Page Path
+### Landing Channel
+
+The result can be NULL or the referral channel (Organic, Adwords, Instagram, Facebook, Twitter).
 
 - tag: text
 - name: any custom field from Pipedrive
-- class: timepicker
+- class: channel
 - example: 
 
-```[text name=PIPEDRIVE_DEAL_0000 class:timepicker]```
+```[text name=PIPEDRIVE_DEAL_0000 class:channel]```
+
+### Landing Device
+
+There results can be Desktop or Mobile.
+
+- tag: text
+- name: any custom field from Pipedrive
+- class: device
+- example: 
+
+```[text name=PIPEDRIVE_DEAL_0000 class:device]```
+
+### Landing Domain
+
+The result is the websites domain name.
+
+- tag: text
+- name: any custom field from Pipedrive
+- class: landing_domain
+- example: 
+
+```[text name=PIPEDRIVE_DEAL_0000 class:landing_domain]```
+
+### Landing Page Path
+
+The result is the landing page path.
+
+- tag: text
+- name: any custom field from Pipedrive
+- class: landing_path
+- example: 
+
+```[text name=PIPEDRIVE_DEAL_0000 class:landing_path]```
