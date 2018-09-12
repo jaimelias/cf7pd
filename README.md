@@ -34,7 +34,9 @@ CF7PD is integrated with Google's Invisible reCAPTCHA. [Get Your Site Key and Se
 - tag: text
 - name: any custom field from Pipedrive
 - class: datepicker
-- example: [text name=PIPEDRIVE_DEAL_0000 class:datepicker]
+- example:
+
+```[text name=PIPEDRIVE_DEAL_0000 class:datepicker]```
 
 ### Time Picker Picker [Pikadate.js](http://amsul.ca/pickadate.js/date/):
 
@@ -43,7 +45,9 @@ Available languages: DE, ES, ES, FR, IT, JA
 - tag: text
 - name: any custom field from Pipedrive
 - class: timepicker
-- example: [text name=PIPEDRIVE_DEAL_0000 class:timepicker]
+- example:
+
+```[text name=PIPEDRIVE_DEAL_0000 class:timepicker]```
  
 ## Country Code List Dropdown: 
 
@@ -52,7 +56,9 @@ Available languages: DE, ES, ES, FR, IT, JA
 - tag: select
 - name: any custom field from Pipedrive
 - class: countrylist
-- example: [select name=PIPEDRIVE_PERSON_0000 class:countrylist]
+- example: 
+
+```[select name=PIPEDRIVE_PERSON_0000 class:countrylist]```
 
 
 ## Hidden Input Class Selectors
