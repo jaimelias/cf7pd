@@ -10,9 +10,6 @@ class Cf7pd_Settings
 		
 		//setting, id, sanitize
 		register_setting( 'cf7pd-settings', 'pipedrive_token', array('Cf7pd_Settings', 'sanitize_token'));
-		register_setting( 'cf7pd-settings', 'pipedrive_closing_enable', array('Cf7pd_Settings', 'sanitize_closing_enable'));
-		register_setting( 'cf7pd-settings', 'pipedrive_closing_days', array('Cf7pd_Settings', 'sanitize_closing_days'));
-		register_setting( 'cf7pd-settings', 'pipedrive_adwords_conversion', 'sanitize_adwords_conversion');	
 
 		//recaptcha wordpress global option
 		register_setting('cf7pd-settings', 'captcha_site_key', 'sanitize_text_field');
@@ -34,31 +31,6 @@ class Cf7pd_Settings
 			'cf7pd-settings', 
 			'cf7pd-settings-section' 
 		);
-		
-		add_settings_field( 
-			'pipedrive_field_1',
-			esc_html(__( 'Enable Deals', 'cf7pd' )), 
-			array('Cf7pd_Settings', 'pipedrive_field_1_render'), 
-			'cf7pd-settings', 
-			'cf7pd-settings-section' 
-		);			
-
-		add_settings_field( 
-			'pipedrive_field_2',
-			esc_html(__( 'Days to Close Deals', 'cf7pd' )), 
-			array('Cf7pd_Settings', 'pipedrive_field_2_render'), 
-			'cf7pd-settings', 
-			'cf7pd-settings-section' 
-		);	
-
-		add_settings_field( 
-			'pipedrive_field_3',
-			esc_html(__( 'Adwords Conversion Key', 'cf7pd' )), 
-			array('Cf7pd_Settings', 'pipedrive_field_3_render'), 
-			'cf7pd-settings', 
-			'cf7pd-settings-section' 
-		);
-
 
 		add_settings_field( 
 			'captcha_site_key', 
@@ -101,29 +73,6 @@ class Cf7pd_Settings
 		<?php
 	}
 	
-	public static function pipedrive_field_1_render(  ) { 
-		$options = get_option( 'pipedrive_closing_enable' );
-		?>
-		<select name='pipedrive_closing_enable[pipedrive_field_1]'>
-			<option value="1" <?php selected( $options['pipedrive_field_1'], 1 ); ?> ><?php echo esc_html(__('No', 'dynamicpackages')); ?></option>
-			<option value="2" <?php selected( $options['pipedrive_field_1'], 2 ); ?> ><?php echo esc_html(__('Yes', 'dynamicpackages')); ?></option>
-		</select>
-		<?php
-	}
-	
-	public static function pipedrive_field_2_render(  ) { 
-		$options = get_option( 'pipedrive_closing_days' );
-		?>
-		<input type='text' name='pipedrive_closing_days[pipedrive_field_2]' value='<?php echo esc_html($options['pipedrive_field_2']); ?>'>
-		<?php
-	}
-
-	public static function pipedrive_field_3_render(  ) { 
-		$options = get_option( 'pipedrive_adwords_conversion' );
-		?>
-		<input type='text' name='pipedrive_adwords_conversion[pipedrive_field_3]' value='<?php echo esc_html($options['pipedrive_field_3']); ?>'>
-		<?php
-	}	
 	
 	public static function display_captcha_site_key_element() { ?>
 		<input type="text" name="captcha_site_key" id="captcha_site_key" value="<?php echo esc_html(get_option('captcha_site_key')); ?>" />
@@ -145,24 +94,8 @@ class Cf7pd_Settings
 		$valid = array();
 		$valid['pipedrive_field_0'] = sanitize_text_field( $input['pipedrive_field_0'] );
 		return $valid;
-	}
-	
-	public static function sanitize_closing_enable( $input ) {
-		$valid = array();
-		$valid['pipedrive_field_1'] = sanitize_text_field( $input['pipedrive_field_1'] );
-		return $valid;
-	}		
-	public static function sanitize_closing_days( $input ) {
-		
-		$valid = array();
-		$valid['pipedrive_field_2'] = intval(sanitize_text_field( $input['pipedrive_field_2'] ));
-		return $valid;
 	}	
-	public static function sanitize_adwords_conversion( $input ) {
-		$valid = array();
-		$valid['pipedrive_field_3'] = sanitize_text_field( $input['pipedrive_field_3'] );
-		return $valid;
-	}		
+	
 	public static function add_settings_page()
 	{
 		add_submenu_page( 'wpcf7', 'Pipedrive - Settings', 'Pipedrive', 'manage_options', 'pipedrive', array('Cf7pd_Settings', 'settings_page') );
