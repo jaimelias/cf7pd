@@ -83,6 +83,7 @@ class Cf7pd_Public {
 				if(has_shortcode( $post->post_content, 'contact-form-7'))
 				{
 					wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cf7pd-public.css', array(), time(), 'all' );
+					Cf7pd_Public::datepickerCSS();
 				}
 			}
 			
@@ -90,6 +91,7 @@ class Cf7pd_Public {
 		if(Cf7pd_Public::shortcode_widget('contact-form-7'))
 		{
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cf7pd-public.css', array(), time(), 'all' );
+			Cf7pd_Public::datepickerCSS();
 		}
 
 		wp_dequeue_style( 'contact-form-7' );
@@ -157,25 +159,38 @@ class Cf7pd_Public {
 	{
 		//recaptcha
 		wp_dequeue_script('google-recaptcha');			
-		wp_enqueue_script('cf7pd-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), '2', false );
+		wp_enqueue_script('cf7pd-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), '2', true );
 		
-		//pikadate
-		wp_enqueue_script( 'picker-js', plugin_dir_url( __FILE__ ) . 'js/picker/picker.js', array('jquery'), '3.5.6', true);
-		wp_enqueue_script( 'picker-date-js', plugin_dir_url( __FILE__ ) . 'js/picker/picker.date.js', array('jquery'), '3.5.6', true);
-		wp_enqueue_script( 'picker-time-js', plugin_dir_url( __FILE__ ) . 'js/picker/picker.time.js',array('jquery'), '3.5.6', true);	
-		wp_enqueue_script( 'picker-legacy', plugin_dir_url( __FILE__ ) . 'js/picker/legacy.js', array('jquery'), '3.5.6', true);
-
-		$picker_translation = 'js/picker/translations/'.substr(get_locale(), 0, -3).'.js';
-
-		if(file_exists(get_template_directory().$picker_translation))
-		{
-			wp_enqueue_script( 'picker-time-translation', plugin_dir_url( __FILE__ ). $picker_translation, array('jquery'), '3.5.6', true);
-		}
+		//datepicker
+		Cf7pd_Public::datepickerJS();
 
 		//public.js
 		wp_enqueue_script('cf7pdJS', plugin_dir_url( __FILE__ ) . 'js/cf7pd-public.js', array('cf7pd-recaptcha', 'jquery'), time(), true );
 		
 	}
+	
+	public static function datepickerCSS()
+	{
+		wp_enqueue_style( 'picker-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.css', array(), '3.5.6', 'all' );
+		wp_enqueue_style( 'picker-date-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.date.css', array('picker-css'), '3.5.6', 'all' );
+		wp_enqueue_style( 'picker-time-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.time.css', array('picker-css'), '3.5.6', 'all' );		
+	}	
+	
+	public static function datepickerJS()
+	{
+		//pikadate
+		wp_enqueue_script( 'picker-js', plugin_dir_url( __FILE__ ) . 'js/picker/picker.js', array('jquery'), '3.5.6', true);
+		wp_enqueue_script( 'picker-date-js', plugin_dir_url( __FILE__ ) . 'js/picker/picker.date.js', array('jquery', 'picker-js'), '3.5.6', true);
+		wp_enqueue_script( 'picker-time-js', plugin_dir_url( __FILE__ ) . 'js/picker/picker.time.js',array('jquery', 'picker-js'), '3.5.6', true);	
+		wp_enqueue_script( 'picker-legacy', plugin_dir_url( __FILE__ ) . 'js/picker/legacy.js', array('jquery', 'picker-js'), '3.5.6', true);
+
+		$picker_translation = 'js/picker/translations/'.substr(get_locale(), 0, -3).'.js';
+
+		if(file_exists(get_template_directory().$picker_translation))
+		{
+			wp_enqueue_script( 'picker-time-translation', plugin_dir_url( __FILE__ ). $picker_translation, array('jquery', 'picker-js'), '3.5.6', true);
+		}		
+	}	
 	
 	public static function validate_recaptcha($result, $tag)
 	{
