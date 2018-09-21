@@ -343,6 +343,11 @@ class Cf7pd_Public {
 
 			if($key != '_wpcf7_is_ajax_call' && $key != '_wpcf7' && $key != '_wpcf7_version' && $key != '_wpcf7_locale' && $key != '_wpcf7_unit_tag' && $key != 'g-recaptcha-response' && $key != 'response' && $key != '_wpcf7_container_post')
 			{
+				
+				if(is_array($value))
+				{
+					$value = implode(", ", $value);
+				}
 				if(preg_match('/PIPEDRIVE\_PERSON\_/i', $key))
 				{
 					$output[$key] = $value;
