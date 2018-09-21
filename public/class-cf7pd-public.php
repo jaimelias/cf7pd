@@ -121,13 +121,6 @@ class Cf7pd_Public {
 		
 		wp_enqueue_script('landing-cookies', plugin_dir_url( __FILE__ ) . 'js/cookies.js', array('jquery'), time(), true );
 		
-		
-		if(get_option('livechat_license') != null)
-		{
-			wp_enqueue_script('livechat', plugin_dir_url( __FILE__ ) . 'js/livechat.js', array('jquery', 'landing-cookies'), $this->version, true );
-			 wp_add_inline_script( 'livechat', 'function livechat_license(){return '.esc_html(get_option('livechat_license')).';}', 'before' );
-		}
-		
 		if(is_array($post))
 		{
 			if(array_key_exists('post_content', $post))

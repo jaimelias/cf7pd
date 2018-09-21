@@ -14,7 +14,6 @@ class Cf7pd_Settings
 		//recaptcha wordpress global option
 		register_setting('cf7pd-settings', 'captcha_site_key', 'sanitize_text_field');
 		register_setting('cf7pd-settings', 'captcha_secret_key', 'sanitize_text_field');			
-		register_setting('cf7pd-settings', 'livechat_license', 'sanitize_text_field');			
 		register_setting('cf7pd-settings', 'ipgeolocation', 'sanitize_text_field');			
 
 		add_settings_section(
@@ -54,15 +53,7 @@ class Cf7pd_Settings
 			array('Cf7pd_Settings', 'display_ipgeolocation'), 
 			'cf7pd-settings', 
 			'cf7pd-settings-section' 
-		);			
-
-		add_settings_field( 
-			'livechat_license', 
-			esc_html(__( 'Livechat License', 'cf7pd' )), 
-			array('Cf7pd_Settings', 'display_livechat_license'), 
-			'cf7pd-settings', 
-			'cf7pd-settings-section' 
-		);		
+		);				
 		
 	}
 	
@@ -81,10 +72,6 @@ class Cf7pd_Settings
 	public static function display_captcha_secret_key_element() { ?>
 		<input type="text" name="captcha_secret_key" id="captcha_secret_key" value="<?php echo esc_html(get_option('captcha_secret_key')); ?>" />
 	<?php }	
-
-	public static function display_livechat_license() { ?>
-		<input type="text" name="livechat_license" id="livechat_license" value="<?php echo esc_html(get_option('livechat_license')); ?>" />
-	<?php }
 
 	public static function display_ipgeolocation() { ?>
 		<input type="text" name="ipgeolocation" id="ipgeolocation" value="<?php echo esc_html(get_option('ipgeolocation')); ?>" />

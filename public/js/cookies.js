@@ -48,8 +48,12 @@ function set_channel()
 	if(getCookie('channel') == '')
 	{
 		var channel = 'Organic';
-		var instagram = /instagram/i;
 		var google = /google/i;
+		var bing = /bing/i;
+		var yahoo = /yahoo/i;
+		var yandex = /yandex/i;
+		var baidu = /baidu/i;
+		var instagram = /instagram/i;
 		var twitter = /twitter/i;
 		var facebook = /facebook/i;
 		
@@ -57,9 +61,36 @@ function set_channel()
 		{
 			if(window.location.href.indexOf('gclid') > -1)
 			{
-				channel = 'Adwords';
-			}		
+				channel = 'Google Ads';
+			}
+			else
+			{
+				channel = 'Google';
+			}
 		}
+		else if(document.referrer.match(bing))
+		{
+			if(window.location.href.indexOf('msclkid') > -1)
+			{
+				channel = 'Bing Ads';
+			}
+			else
+			{
+				channel = 'Bing';
+			}
+		}
+		else if(document.referrer.match(yahoo))
+		{
+			channel = 'Yahoo';
+		}		
+		else if(document.referrer.match(baidu))
+		{
+			channel = 'Baidu';
+		}
+		else if(document.referrer.match(yandex))
+		{
+			channel = 'Yandex';
+		}				
 		else if(document.referrer.match(instagram))
 		{
 			channel = 'Instagram';
