@@ -233,6 +233,7 @@ class Cf7pd_Public {
 		$site_key = '';
 		$output = '';
 		$label = __('Send request', 'cf7pd');
+		$classes = 'g-recaptcha';
 		
 		if(get_option('captcha_site_key') != '')
 		{
@@ -240,15 +241,25 @@ class Cf7pd_Public {
 		}
 		
 		if(is_array($attr))
-		{
-			if(count($attr) > 0)
+		{	
+			if(count($attr) > 1)
 			{
-				$label = $attr[0];
-			}			
+				
+				
+				if(!preg_match('/class/', end($attr)))
+				{
+					$label = end($attr);
+				}
+				
+				for($x = 0; $x < count($attr); $x++)
+				{
+					$classes .= ' '.str_replace('class:', '', $attr[$x]);
+				}				
+			}
 		}
 
 		
-		$output .= '<button class="g-recaptcha strong uppercase pure-button pure-button pure-button-primary" data-badge="bottomleft" data-sitekey="'.esc_html($site_key).'" data-callback="pipedrive_submit">'.esc_html($label).'</button>';
+		$output .= '<button class="'.$classes.'" data-badge="bottomleft" data-sitekey="'.esc_html($site_key).'" data-callback="pipedrive_submit">'.esc_html($label).'</button>';
 		
 		$output .= '<div class="hidden"><input type="text" name="response" /><input type="text" name="remote-ip" value="'.esc_html(Cf7pd_Public::get_client_ip()).'" /></div>';
 		
