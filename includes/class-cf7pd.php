@@ -183,12 +183,7 @@ class Cf7pd {
 
 		$this->loader->add_action( 'wpcf7_form_elements', $plugin_public, 'enable_shortcodes');
 		
-		$this->loader->add_filter( 'wpcf7_validate', $plugin_public, 'validate_recaptcha', 10, 2);
-		
-		$this->loader->add_filter( 'wpcf7_ajax_loader', $plugin_public, 'remove_ajax_loader', 10, 1);
-		
-		$this->loader->add_filter( 'wpcf7_form_response_output', $plugin_public, 'modal_response', 10, 4);
-		
+		$this->loader->add_filter( 'wpcf7_validate', $plugin_public, 'validate_recaptcha', 10, 2);		
 	}
 
 	/**

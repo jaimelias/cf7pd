@@ -13,15 +13,7 @@
 			pipedrive_id();
 			pipedrive_cookies();
 			responsive_datepicker();
-			responsive_timepicker();
-			
-			$(".wpcf7-form").submit(function() {
-				$(this).find(".modal-container").removeClass('hidden');
-			});
-			
-			$(".wpcf7-form").find(".modal-close").click(function(){
-				$(".modal-container").addClass('hidden');
-			});			
+			responsive_timepicker();		
 		});		
 	});	
 })( jQuery );

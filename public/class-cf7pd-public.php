@@ -90,12 +90,8 @@ class Cf7pd_Public {
 		}
 		if(Cf7pd_Public::shortcode_widget('contact-form-7'))
 		{
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cf7pd-public.css', array(), time(), 'all' );
 			Cf7pd_Public::datepickerCSS();
-		}
-
-		wp_dequeue_style( 'contact-form-7' );
-		
+		}		
 	}
 
 	/**
@@ -395,15 +391,6 @@ class Cf7pd_Public {
 		{
 			error_log( $log );
 		}
-	}
-	
-	public static function remove_ajax_loader()
-	{
-		remove_filter( 'wpcf7_ajax_loader', 'filter_wpcf7_ajax_loader', 10, 1 );
-	}
-	public static function modal_response( $output, $class, $content, $instance)
-	{
-		return '<div class="modal-container hidden large strong uppercase"><div class="modal-content"><div class="modal-header text-right"><span class="modal-close pointer"><i class="fas fa-times"></i></span></div>'.$output.'</div></div>';
 	}
 	
 	public static function footer()
