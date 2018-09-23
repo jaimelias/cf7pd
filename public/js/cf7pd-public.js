@@ -16,10 +16,10 @@
 
 function pipedrive_cookies()
 {
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		var landing = ['channel', 'device', 'landing_domain', 'landing_path'];
 		var warnings = 0;		
-		
+				
 		$('.wpcf7-form').each(function(){
 			
 			var this_form = $(this);
@@ -49,7 +49,7 @@ function pipedrive_cookies()
 
 function pipedrive_id(){
 	
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		$('.wpcf7-form').find('input.id').each(function(){
 			if(this.id != '')
 			{	
@@ -70,7 +70,7 @@ function pipedrive_id(){
 }
 function pipedrive_param()
 {
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		var urlParams = new URLSearchParams(window.location.search);
 		
 		$('.wpcf7-form').find('input.param').each(function(){
@@ -92,7 +92,7 @@ function pipedrive_param()
 
 function pipedrive_lang(lang)
 {
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		$('.wpcf7-form').find('input.lang').each(function(){
 			$(this).val(lang);
 			console.log('lang: '+ $(this).val());
@@ -102,7 +102,7 @@ function pipedrive_lang(lang)
 
 function pipedrive_country_list(pluginurl, htmllang)
 {
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		if($('.countrylist').length > 0)
 		{
 			$.getJSON( pluginurl + 'countries/'+htmllang+'.json')
@@ -133,7 +133,7 @@ function pipedrive_country_options(data)
 
 function responsive_datepicker()
 {
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		$('.wpcf7-form').find('input.datepicker').each(function()
 		{	
 			var args = {};
@@ -156,7 +156,7 @@ function responsive_datepicker()
 
 function responsive_timepicker()
 {
-	$(window).load(function(){
+	$(window).on('load', function (e){
 		var args = {};
 		args.container = '#cf7pd-timepicker';
 		

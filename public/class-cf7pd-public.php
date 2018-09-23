@@ -147,22 +147,22 @@ class Cf7pd_Public {
 	public static function script_list()
 	{
 		//recaptcha
-		wp_dequeue_script('google-recaptcha');			
-		wp_enqueue_script('cf7pd-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), '2', true );
+		wp_dequeue_script('google-recaptcha');
+		wp_enqueue_script('invisible-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), '2', true );
 		
 		//datepicker
 		Cf7pd_Public::datepickerJS();
 
 		//public.js
-		wp_enqueue_script('cf7pdJS', plugin_dir_url( __FILE__ ) . 'js/cf7pd-public.js', array('cf7pd-recaptcha', 'jquery'), time(), true );
+		wp_enqueue_script('cf7pdJS', plugin_dir_url( __FILE__ ) . 'js/cf7pd-public.js', array('invisible-recaptcha', 'jquery'), time(), true );
 		
 	}
 	
 	public static function datepickerCSS()
 	{
-		wp_enqueue_style( 'picker-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.css', array(), '3.5.6', 'all' );
-		wp_enqueue_style( 'picker-date-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.date.css', array('picker-css'), '3.5.6', 'all' );
-		wp_enqueue_style( 'picker-time-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.time.css', array('picker-css'), '3.5.6', 'all' );		
+		wp_enqueue_style( 'picker-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.css', array(), 'cf7pd', 'all' );
+		wp_enqueue_style( 'picker-date-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.date.css', array('picker-css'), 'cf7pd', 'all' );
+		wp_enqueue_style( 'picker-time-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.time.css', array('picker-css'), 'cf7pd', 'all' );		
 	}	
 	
 	public static function datepickerJS()
