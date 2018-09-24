@@ -71,14 +71,12 @@ function pipedrive_id(){
 function pipedrive_param()
 {
 	$(window).on('load', function (e){
-		var urlParams = new URLSearchParams(window.location.search);
-		
 		$('.wpcf7-form').find('input.param').each(function(){
 			if(this.id != '')
 			{
-				if(urlParams.get(this.id) != '')
+				if(getUrlParameter(this.id) != '')
 				{
-					$(this).val(urlParams.get(this.id));
+					$(this).val(getUrlParameter(this.id));
 					console.log(this.id+': '+$(this).val());	
 				}
 				else
@@ -205,4 +203,19 @@ function pipedrive_submit($token)
 		$('.wpcf7-form').submit();
 		grecaptcha.reset();
 	});
+}
+
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
 }

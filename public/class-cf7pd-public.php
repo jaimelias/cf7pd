@@ -156,6 +156,8 @@ class Cf7pd_Public {
 		//public.js
 		wp_enqueue_script('cf7pdJS', plugin_dir_url( __FILE__ ) . 'js/cf7pd-public.js', array('invisible-recaptcha', 'jquery'), time(), true );
 		
+		wp_add_inline_script('cf7pdJS', 'function cf7pd_url(){return "'.esc_url(plugin_dir_url( __FILE__ )).'";}', 'before');
+		
 	}
 	
 	public static function datepickerCSS()
@@ -318,11 +320,6 @@ class Cf7pd_Public {
 		{
 			return false;
 		}
-	}	
-
-	public static function url()
-	{
-		echo '<script>function cf7pd_url(){return "'.esc_url(plugin_dir_url( __FILE__ )).'";}</script>';
 	}	
 	
 	public static function pipedrive_submit($form)

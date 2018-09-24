@@ -178,7 +178,6 @@ class Cf7pd {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		
 		$this->loader->add_action( 'wpcf7_mail_sent', $plugin_public, 'pipedrive_submit' );
-		$this->loader->add_action( 'wp_head', $plugin_public, 'url' );
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'footer' );
 
 		$this->loader->add_action( 'wpcf7_form_elements', $plugin_public, 'enable_shortcodes');
