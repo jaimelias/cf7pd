@@ -19,10 +19,17 @@ function set_device()
 			device = 'Mobile';
 		}
 		
-		setCookie('device', device, 30);		
+		setCookie('device', device, 30);
+		
+		if(getCookie('device') == '')
+		{
+			setCookie('device', 'undefined', 30);
+		}
+		$('input.device').each(function(){
+			$(this).val(getCookie('device'));
+		});				
 	}
 	console.log('device: ' + getCookie('device'));
-	
 }
 
 function set_landing_domain()
@@ -30,6 +37,14 @@ function set_landing_domain()
 	if(getCookie('landing_domain') == '')
 	{
 		setCookie('landing_domain', window.location.hostname, 30);
+		
+		if(getCookie('landing_domain') == '')
+		{
+			setCookie('landing_domain', 'undefined', 30);
+		}
+		$('input.landing_domain').each(function(){
+			$(this).val(getCookie('landing_domain'));
+		});			
 	}
 	console.log('landing_domain: ' + getCookie('landing_domain'));
 }
@@ -39,6 +54,14 @@ function set_landing_path()
 	if(getCookie('landing_path') == '')
 	{
 		setCookie('landing_path', window.location.pathname, 30);
+		
+		if(getCookie('landing_path') == '')
+		{
+			setCookie('landing_path', 'undefined', 30);
+		}
+		$('input.landing_path').each(function(){
+			$(this).val(getCookie('landing_path'));
+		});		
 	}
 	console.log('landing_path: ' + getCookie('landing_path'));
 }

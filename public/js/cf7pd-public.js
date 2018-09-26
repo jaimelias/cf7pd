@@ -74,14 +74,17 @@ function pipedrive_param()
 		$('.wpcf7-form').find('input.param').each(function(){
 			if(this.id != '')
 			{
-				if(getUrlParameter(this.id) != '')
+				if(typeof getUrlParameter(this.id) !== 'undefined')
 				{
-					$(this).val(getUrlParameter(this.id));
-					console.log(this.id+': '+$(this).val());	
-				}
-				else
-				{
-					console.log('param '+ this.id +' not found in URL.');
+					if(getUrlParameter(this.id) != '')
+					{
+						$(this).val(getUrlParameter(this.id).replace(/\+/g, ' '));
+						console.log(this.id+': '+$(this).val());	
+					}
+					else
+					{
+						console.log('param '+ this.id +' not found in URL.');
+					}					
 				}
 			}
 		});		
