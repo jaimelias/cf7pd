@@ -13,7 +13,7 @@
  * @package           Cf7pd
  *
  * @wordpress-plugin
- * Plugin Name:       CF7PD (Marketing Optimize CF7 to Pipedrive)
+ * Plugin Name:       CF7PD (Marketing Optimized CF7 to Pipedrive)
  * Plugin URI:        https://github.com/jaimelias/cf7pd
  * Description:       Create deals, contacts and track conversions from email marketing campaigns, organic referrals, Adwords and social media in Pipedrive.
  * Version:           1.0.0
