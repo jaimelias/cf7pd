@@ -17,7 +17,19 @@ CF7PD lets you send any data from the HTML or the URL params to Pipedrive.
 
 ## Configuration
 
+CF7PD Settings Page
+
 ![CF7PD configuration page](assets/settings-page.jpeg)
+
+CF7PD Tag Generator. It gets event the custom fields from Pipedrive.
+
+![CF7PD configuration page](assets/tag-generator.jpeg)
+
+Replace all your [submit] tags with the new and secure [recaptcha_button] tag. This tag supports custom value and classes.
+
+
+
+
 
 CF7PD use Cookies to store key decision making data until the form is submitted. This Cookie expires 30 days after it is created.
 
