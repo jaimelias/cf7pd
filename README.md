@@ -4,13 +4,13 @@ CF7PD is the best Marketing Optimized Wordpress integration plugin for Pipedrive
 
 CF7PD allows you to create deals, contacts and notes from a single contact form.
 
-CF7PD supports and connects any field for your for deals and contacts, even custom fields.
+CF7PD supports custom fields.
 
 CF7PD lets you track conversions from digital marketing campaigns in Pipedrive: 
 
-- Adwords
+- Google Ads, Bing Ads
 - Social Networks (Facebook, Twitter and Instagram)
-- Organic SEO (Search Engine Optimization)
+- Organic SEO (Google, Bing, Yahoo, Yandex, Baidu)
 - Email Marketing Campaigns
 
 CF7PD lets you send any data from the HTML or the URL params to Pipedrive.
@@ -63,13 +63,13 @@ Available languages: DE, ES, ES, FR, IT, JA
 
 ## Hidden Input Class Selectors
 
-The inputs below should be hidden inside a DIV tag: 
+We recommend to hide all you hidden Pipedrive INPUTS in a HTML DIV tag: 
 
-```<div style="display: hidden"><input /><input /></div>```
+```<div style="display: hidden"><input /><input /><input /></div>```
 
 ### Landing Channel
 
-The result can be NULL or the referral channel (Organic, Adwords, Instagram, Facebook, Twitter).
+The result can be NULL or the referral channel (Organic, Google Ads, Bing Ads, Instagram, Facebook, Twitter).
 
 - tag: text
 - name: any custom field from Pipedrive
@@ -78,7 +78,7 @@ The result can be NULL or the referral channel (Organic, Adwords, Instagram, Fac
 
 ```[text name=PIPEDRIVE_DEAL_0000 class:channel]```
 
-### Landing Device
+### Landing Device (Results: Mobile/Desktop)
 
 There results can be Desktop or Mobile.
 
@@ -91,7 +91,7 @@ There results can be Desktop or Mobile.
 
 ### Landing Domain
 
-The result is the websites domain name.
+The result is the websites domain name (website main URL).
 
 - tag: text
 - name: any custom field from Pipedrive
@@ -102,7 +102,7 @@ The result is the websites domain name.
 
 ### Landing Page Path
 
-The result is the landing page path.
+The result is the landing page path. The first page in your website the client visited. It works only with friendly URLS.
 
 - tag: text
 - name: any custom field from Pipedrive
@@ -110,3 +110,44 @@ The result is the landing page path.
 - example: 
 
 ```[text name=PIPEDRIVE_DEAL_0000 class:landing_path]```
+
+### Custom URL params in Pipedrive
+
+With this code you can track your Marketing Campaigns and any other information from the URL directly in Pipedrive.
+
+- tag: text
+- name: any custom field from Pipedrive
+- class: param
+- id: any param from the URL
+example: 
+
+https://aeroalbrook.com/packages/panama-canal-helicopter-tour/?booking_once_field=1d3dc6c44c&booking_date=2018-09-29&booking_hour=3%3A30+PM&booking_adults=1
+
+```[text name=PIPEDRIVE_DEAL_0000 class:param id:booking_date]```
+
+returns: 2018-09-29
+
+```[text name=PIPEDRIVE_DEAL_0000 class:param id:booking_hour]```
+
+returns: 3:30 PM
+
+```[text name=PIPEDRIVE_DEAL_0000 class:param id:booking_adults]```
+
+returns: 1
+
+### HTML content in Pipedrive
+
+Send anything from the HTML to Pipedrive. The HTML needs to be modified in order to make this code work.
+
+- tag: text
+- name: any custom field from Pipedrive
+- class: id
+- id: the value of the attribute data-id in your HTML
+- example: 
+
+The HTML in your Website need to include the attribute data-id="here goes the ID of your INPUT":
+
+```<div data-id="price">500</div>```
+
+
+```[text name=PIPEDRIVE_DEAL_0000 class:id id:price]```
