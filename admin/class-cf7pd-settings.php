@@ -25,7 +25,7 @@ class Cf7pd_Settings
 
 		add_settings_field( 
 			'pipedrive_field_0',
-			esc_html(__( 'Token', 'cf7pd' )), 
+			esc_html(__( 'Pipedrive Token', 'cf7pd' )), 
 			array('Cf7pd_Settings', 'pipedrive_field_0_render'), 
 			'cf7pd-settings', 
 			'cf7pd-settings-section' 
@@ -60,21 +60,21 @@ class Cf7pd_Settings
 	public static function pipedrive_field_0_render(  ) { 
 		$options = get_option( 'pipedrive_token' );
 		?>
-		<input type='text' name='pipedrive_token[pipedrive_field_0]' value='<?php echo esc_html($options['pipedrive_field_0']); ?>'>
+		<input type='text' name='pipedrive_token[pipedrive_field_0]' value='<?php echo esc_html($options['pipedrive_field_0']); ?>'><br/> <small><?php echo esc_html(__('Visit your Pipedrive account and go to Settings > Personal > Other > API', 'cf7pd')); ?></small>
 		<?php
 	}
 	
 	
 	public static function display_captcha_site_key_element() { ?>
-		<input type="text" name="captcha_site_key" id="captcha_site_key" value="<?php echo esc_html(get_option('captcha_site_key')); ?>" />
+		<input type="text" name="captcha_site_key" id="captcha_site_key" value="<?php echo esc_html(get_option('captcha_site_key')); ?>" /> <a target="_blank" href="https://www.google.com/recaptcha/admin">Invisible Recaptcha</a>
 	<?php }
 
 	public static function display_captcha_secret_key_element() { ?>
-		<input type="text" name="captcha_secret_key" id="captcha_secret_key" value="<?php echo esc_html(get_option('captcha_secret_key')); ?>" />
+		<input type="text" name="captcha_secret_key" id="captcha_secret_key" value="<?php echo esc_html(get_option('captcha_secret_key')); ?>" /> <a target="_blank" href="https://www.google.com/recaptcha/admin">Invisible Recaptcha</a>
 	<?php }	
 
 	public static function display_ipgeolocation() { ?>
-		<input type="text" name="ipgeolocation" id="ipgeolocation" value="<?php echo esc_html(get_option('ipgeolocation')); ?>" />
+		<input type="text" name="ipgeolocation" id="ipgeolocation" value="<?php echo esc_html(get_option('ipgeolocation')); ?>" /> <a target="_blank" href="https://app.ipgeolocation.io/auth/login">IPGeolocation</a>
 	<?php }	
 	
 	public static function sanitize_token( $input ) {
