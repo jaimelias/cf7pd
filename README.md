@@ -15,6 +15,13 @@ CF7PD lets you track conversions from digital marketing campaigns in Pipedrive:
 
 CF7PD lets you send any data from the HTML or the URL params to Pipedrive.
 
+## Installation
+
+1. Make sure the latest Contact Form 7 plugin is already installed.
+2. Download this file https://github.com/jaimelias/CF7PD/archive/master.zip and upload it in your Wordpress plugins.
+3. Activate this new plugin.
+4. Go to the settings page "Pipedrive" of this plugin located in the "Contact" tab of your Wordpress dashboard: Wordpress Admin Dashboard > Contact > Pipedrive.
+
 ## Configuration
 
 ### 1. CF7PD Settings Page
