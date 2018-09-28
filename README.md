@@ -151,3 +151,32 @@ The HTML in your Website need to include the attribute data-id="here goes the ID
 
 
 ```[text name=PIPEDRIVE_DEAL_0000 class:id id:price]```
+
+returns: 500
+
+### Automatic Geo-location
+
+Send the IP, Country, State/Provice, City, District to Pipedrive automatically.
+
+First sign up in https://app.ipgeolocation.io/auth/login
+
+Copy the IPGeolocation API Key in the settings page of CF7PD (inside the "Contact" tab in your Wordpress dashboard).
+
+With IPGeolocation.io You can send up to 1000 form requests with Geo-location data for free per month. Their paid plans start at $10 per month and provide 150,000 form requests.
+
+- tag: text
+- name: any custom field from Pipedrive
+- class: ip, country_name, country_code2, state_prov, district, city. Form more documentation visit: https://ipgeolocation.io/documentation
+- example:
+
+```[text name=PIPEDRIVE_DEAL_0000 class:city]```
+
+returns: the name of the city of your visitor
+
+```[text name=PIPEDRIVE_DEAL_0000 class:country_name]```
+
+returns: the name of the country of your visitor
+
+```[text name=PIPEDRIVE_DEAL_0000 class:country_code2]```
+
+returns: the 2 digits country code of your visitor
