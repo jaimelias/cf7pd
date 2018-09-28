@@ -121,7 +121,7 @@ With this code you can track your Marketing Campaigns and any other information 
 - id: any param from the URL
 example: 
 
-https://aeroalbrook.com/packages/panama-canal-helicopter-tour/?booking_once_field=1d3dc6c44c&booking_date=2018-09-29&booking_hour=3%3A30+PM&booking_adults=1
+https://example.com/?booking_date=2018-09-29&booking_hour=3%3A30+PM&booking_adults=1
 
 ```[text name=PIPEDRIVE_DEAL_0000 class:param id:booking_date]```
 
