@@ -1,7 +1,5 @@
 # CF7PD is the best Marketing Optimized Wordpress integration plugin for Pipedrive
 
-CF7PD is the best Marketing Optimized Wordpress integration plugin for Pipedrive.
-
 CF7PD allows you to create deals, contacts and notes from a single contact form.
 
 CF7PD supports custom fields.
