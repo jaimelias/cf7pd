@@ -20,7 +20,7 @@
 	{
 		var cf7pdbutton = $("<a>").attr({"class": "PIPEDRIVE_button thickbox",
 			"title": "Pipedrive Fields - Tag Generator",
-			"href": "#TB_inline?width=400&height=400&inlineId=cf7pdpanel"}).text("Pipedrive Fields");
+			"href": "#TB_inline?width=400&height=400&inlineId=cf7pdpanel"}).text("CF7PD Pipedrive Fields");
 		$("#tag-generator-list").prepend(cf7pdbutton);	
 	}
 	
@@ -28,7 +28,7 @@
 	{
 		var cf7pdsubmit = $("<a>").attr({"class": "PIPEDRIVE_button",
 			"title": "Secure Submit Button",
-			"href": "#wpcf7-form"}).text("Secure Submit");
+			"href": "#wpcf7-form"}).text("CF7PD Recaptcha Button");
 			$("#tag-generator-list").prepend(cf7pdsubmit);
 			
 			$(cf7pdsubmit).click(function(e){
