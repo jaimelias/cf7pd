@@ -15,6 +15,10 @@ CF7PD lets you track conversions from digital marketing campaigns in Pipedrive:
 
 CF7PD lets you send any data from the HTML or the URL params to Pipedrive.
 
+## Configuration
+
+![CF7PD configuration page](assets/settings-page.jpeg)
+
 CF7PD use Cookies to store key decision making data until the form is submitted. This Cookie expires 30 days after it is created.
 
 - Landing page path
