@@ -185,7 +185,7 @@ First sign up in https://app.ipgeolocation.io/auth/login
 
 Copy the IPGeolocation API Key in the settings page of CF7PD (inside the "Contact" tab in your Wordpress dashboard).
 
-With IPGeolocation.io You can send up to 1000 form requests with Geo-location data for free per month. Their paid plans start at $10 per month and provide 150,000 form requests.
+With IPGeolocation.io You can send up to 50k form requests with Geo-location data for free per month. Their paid plans start at $15 per month and provide 150k form requests.
 
 - tag: text
 - name: any custom field from Pipedrive

@@ -148,7 +148,7 @@ class Cf7pd_Public {
 	{
 		//recaptcha
 		wp_dequeue_script('google-recaptcha');
-		wp_enqueue_script('invisible-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), '2', true );
+		wp_enqueue_script('invisible-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), 'async_defer', true );
 		
 		//datepicker
 		Cf7pd_Public::datepickerJS();
@@ -162,10 +162,10 @@ class Cf7pd_Public {
 	
 	public static function datepickerCSS()
 	{
-		wp_enqueue_style( 'picker-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.css', array(), 'cf7pd', 'all' );
-		wp_enqueue_style( 'picker-date-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.date.css', array('picker-css'), 'cf7pd', 'all' );
-		wp_enqueue_style( 'picker-time-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.time.css', array('picker-css'), 'cf7pd', 'all' );		
-	}	
+		wp_enqueue_style( 'picker-css', plugin_dir_url( __FILE__ ) . 'css/picker/default.css', array(), 'jetcharters', 'all' );
+		wp_add_inline_style('picker-css', self::get_inline_css('picker/default.date'));
+		wp_add_inline_style('picker-css', self::get_inline_css('picker/default.time'));		
+	}		
 	
 	public static function datepickerJS()
 	{
@@ -394,4 +394,12 @@ class Cf7pd_Public {
 	{
 		echo '<div id="cf7pd-datepicker"></div><div id="cf7pd-timepicker"></div>';
 	}
+	public static function get_inline_css($file)
+	{
+		ob_start();
+		require_once(dirname( __FILE__ ) . '/css/'.$file.'.css');
+		$output = ob_get_contents();
+		ob_end_clean();
+		return $output;			
+	}		
 }

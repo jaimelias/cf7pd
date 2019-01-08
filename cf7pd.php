@@ -73,3 +73,22 @@ function run_cf7pd() {
 
 }
 run_cf7pd();
+
+
+if ( ! function_exists('write_log')) {
+	function write_log ( $log )  {
+		
+		if ( is_array( $log ) || is_object( $log ) ) {
+
+			$log .= ' '.sanitize_text_field($_SERVER['REQUEST_URI']);  
+			$log .= ' '.sanitize_text_field($_SERVER['HTTP_USER_AGENT']);  
+			error_log( print_r( $log, true ) );
+		}
+		else
+		{
+			$log .= ' '.sanitize_text_field($_SERVER['REQUEST_URI']);  
+			$log .= ' '.sanitize_text_field($_SERVER['HTTP_USER_AGENT']);  
+			error_log( $log );
+		}
+	}
+}
