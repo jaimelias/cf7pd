@@ -336,6 +336,7 @@ class Cf7pd_Public {
 		if ($submission) 
 		{
 			$posted_data = $submission->get_posted_data();
+			$posted_data['_post_title'] = get_the_title($posted_data['_wpcf7_container_post']);
 		}
 						
 		foreach($posted_data as $key => $value)
