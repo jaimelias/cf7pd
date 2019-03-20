@@ -128,7 +128,6 @@ class Cf7pd_Public {
 			}			
 		}
 		
-		
 		if(Cf7pd_Public::shortcode_widget('contact-form-7'))
 		{
 			Cf7pd_Public::script_list();
@@ -176,12 +175,12 @@ class Cf7pd_Public {
 		wp_enqueue_script( 'picker-legacy', plugin_dir_url( __FILE__ ) . 'js/picker/legacy.js', array('jquery', 'picker-js'), '3.5.6', true);
 
 		$picker_translation = 'js/picker/translations/'.substr(get_locale(), 0, -3).'.js';
-
-		if(file_exists(get_template_directory().$picker_translation))
+				
+		if(file_exists(dirname( __FILE__ ).'/'.$picker_translation))
 		{
-			wp_enqueue_script( 'picker-time-translation', plugin_dir_url( __FILE__ ). $picker_translation, array('jquery', 'picker-js'), '3.5.6', true);
+			wp_enqueue_script( 'picker-time-translation', plugin_dir_url( __FILE__ ).$picker_translation, array('jquery', 'picker-js'), '3.5.6', true);
 		}		
-	}	
+	}
 	
 	public static function validate_recaptcha($result, $tag)
 	{

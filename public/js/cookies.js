@@ -6,6 +6,21 @@ function set_cookies()
 	set_landing_path();
 	set_landing_domain();
 	set_device();
+	set_affiliate();
+}
+function set_affiliate()
+{
+	if(getCookie('affiliate') == '')
+	{
+		if(typeof getUrlParameter('ref') !== 'undefined')
+		{
+			if(getUrlParameter('ref') != '')
+			{
+				setCookie('affiliate', getUrlParameter('ref'), 30);
+			}
+		}		
+	}
+	console.log('affiliate: ' + getCookie('affiliate'));
 }
 
 function set_device()
@@ -79,12 +94,7 @@ function set_channel()
 		var instagram = /instagram/i;
 		var twitter = /twitter/i;
 		var facebook = /facebook/i;
-		
-		
-		if(typeof getUrlParameter('referrer') !== 'undefined')
-		{
-			channel = getUrlParameter('referrer');
-		}		
+			
 		if(document.referrer.match(google))
 		{
 			if(window.location.href.indexOf('gclid') > -1)
