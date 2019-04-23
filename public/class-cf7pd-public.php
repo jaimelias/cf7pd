@@ -50,9 +50,7 @@ class Cf7pd_Public {
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version; 
-		
-		add_shortcode('recaptcha_button', array('Cf7pd_Public', 'recaptcha'));
+		$this->version = $version; 		
 	}
 
 	/**
@@ -61,18 +59,6 @@ class Cf7pd_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Cf7pd_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Cf7pd_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 		 
 		global $post; 
 		
@@ -94,27 +80,12 @@ class Cf7pd_Public {
 		}		
 	}
 
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
+
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Cf7pd_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Cf7pd_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		global $post;
-		
+		self::cf7_dequeue_recaptcha();		
 		wp_enqueue_script('landing-cookies', plugin_dir_url( __FILE__ ) . 'js/cookies.js', array('jquery'), time(), true );
 		
 		if(is_array($post))
@@ -145,19 +116,36 @@ class Cf7pd_Public {
 	
 	public static function script_list()
 	{
-		//recaptcha
-		wp_dequeue_script('google-recaptcha');
-		wp_enqueue_script('invisible-recaptcha', 'https://www.google.com/recaptcha/api.js', array('jquery'), 'async_defer', true );
+		$dep = array('jquery');
 		
 		//datepicker
 		Cf7pd_Public::datepickerJS();
 
 		//public.js
-		wp_enqueue_script('cf7pdJS', plugin_dir_url( __FILE__ ) . 'js/cf7pd-public.js', array('invisible-recaptcha', 'jquery'), time(), true );
-		
+		wp_enqueue_script('cf7pdJS', plugin_dir_url( __FILE__ ) . 'js/cf7pd-public.js', $dep, time(), true );
 		wp_add_inline_script('cf7pdJS', 'function cf7pd_url(){return "'.esc_url(plugin_dir_url( __FILE__ )).'";}', 'before');
+		wp_add_inline_script('cf7pdJS', self::get_inline_js('cf7pd-func'), 'after');
 		
 	}
+	public static function cf7_dequeue_recaptcha()
+	{
+		$dequeu = true;
+		
+		if(is_singular())
+		{
+			global $post;
+			
+			if(has_shortcode($post->post_content, 'contact-form-7'))
+			{
+				$dequeu = false;
+			}
+		}
+		
+		if($dequeu === true)
+		{
+			wp_dequeue_script('google-recaptcha');
+		}
+	}	
 	
 	public static function datepickerCSS()
 	{
@@ -180,88 +168,6 @@ class Cf7pd_Public {
 		{
 			wp_enqueue_script( 'picker-time-translation', plugin_dir_url( __FILE__ ).$picker_translation, array('jquery', 'picker-js'), '3.5.6', true);
 		}		
-	}
-	
-	public static function validate_recaptcha($result, $tag)
-	{
-				
-		if(isset($_POST['response']) && isset($_POST['remote-ip']))
-		{
-			
-			$data = array();
-			$data['secret'] = sanitize_text_field(get_option('captcha_secret_key'));
-			$data['response'] = sanitize_text_field($_POST['response']);
-			$data['remoteip'] = sanitize_text_field($_POST['remote-ip']);
-			
-			$url = 'https://www.google.com/recaptcha/api/siteverify';
-			$verify = curl_init();
-			curl_setopt($verify, CURLOPT_URL, $url);
-			curl_setopt($verify, CURLOPT_POST, true);
-			curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
-			curl_setopt($verify, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
-			$verify_response = json_decode(curl_exec($verify), true);			
-						
-			if($verify_response['success'] == false)
-			{
-				$error_code = __('Invalid Recaptcha', 'cf7pd').': '.implode(", ", $verify_response['error-codes']);
-				$result->invalidate('PIPEDRIVE_PERSON_email', esc_html($error_code));
-				$result->invalidate('PIPEDRIVE_PERSON_name', esc_html($error_code));
-			}	
-			
-		}
-		else
-		{
-			$error_code = __('remote-ip or response not fount in form', 'cf7pd');			
-			$result->invalidate('PIPEDRIVE_PERSON_email', esc_html($error_code));
-			$result->invalidate('PIPEDRIVE_PERSON_name', esc_html($error_code));			
-		}
-		return $result;
-	}
-	
-	public static function enable_shortcodes($form)
-	{
-		$form = do_shortcode( $form );
-		return $form;		
-	}
-	
-	public static function recaptcha($attr)
-	{	
-		$site_key = '';
-		$output = '';
-		$label = __('Send request', 'cf7pd');
-		$classes = 'g-recaptcha';
-		
-		if(get_option('captcha_site_key') != '')
-		{
-			$site_key = get_option('captcha_site_key');
-		}
-		
-		if(is_array($attr))
-		{	
-			if(count($attr) > 1)
-			{
-				
-				
-				if(!preg_match('/class/', end($attr)))
-				{
-					$label = end($attr);
-				}
-				
-				for($x = 0; $x < count($attr); $x++)
-				{
-					$classes .= ' '.str_replace('class:', '', $attr[$x]);
-				}				
-			}
-		}
-
-		
-		$output .= '<button class="'.$classes.'" data-badge="bottomleft" data-sitekey="'.esc_html($site_key).'" data-callback="pipedrive_submit">'.esc_html($label).'</button>';
-		
-		$output .= '<div class="hidden"><input type="text" name="response" /><input type="text" name="remote-ip" value="'.esc_html(Cf7pd_Public::get_client_ip()).'" /></div>';
-		
-		return $output;
-		
 	}
 	
 	public static function get_client_ip() {
@@ -350,7 +256,7 @@ class Cf7pd_Public {
 			$clean_key = preg_replace('/PIPEDRIVE\_PERSON\_/i', '', $key);
 			$clean_key = preg_replace('/PIPEDRIVE\_DEAL\_/i', '', $key);
 
-			if($key != '_wpcf7_is_ajax_call' && $key != '_wpcf7' && $key != '_wpcf7_version' && $key != '_wpcf7_locale' && $key != '_wpcf7_unit_tag' && $key != 'g-recaptcha-response' && $key != 'response' && $key != '_wpcf7_container_post')
+			if($key != '_wpcf7_is_ajax_call' && $key != '_wpcf7' && $key != '_wpcf7_version' && $key != '_wpcf7_locale' && $key != '_wpcf7_unit_tag' && $key != '_wpcf7_container_post')
 			{
 				if(preg_match('/PIPEDRIVE\_PERSON\_/i', $key))
 				{
@@ -401,5 +307,13 @@ class Cf7pd_Public {
 		$output = ob_get_contents();
 		ob_end_clean();
 		return $output;			
-	}		
+	}
+	public static function get_inline_js($file)
+	{
+		ob_start();
+		require_once(dirname( __FILE__ ) . '/js/'.$file.'.js');
+		$output = ob_get_contents();
+		ob_end_clean();
+		return $output;			
+	}	
 }

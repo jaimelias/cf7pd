@@ -32,25 +32,6 @@ Open or create a new form. Use the "CF7PD Pipedrive Fields" button to insert you
 
 ![CF7PD configuration page](assets/tag-generator.jpeg)
 
-### 3. Replace all your [submit] tags with the new and secure [recaptcha_button] tag.
-
-This tag supports custom value and classes. It is located next to the Pipedrive Fields button. Make sure you delete any previous [recaptcha] tag.
-
-![CF7PD recaptcha-button](assets/recaptcha-button.jpeg)
-
-CF7PD use Cookies to store key decision making data until the form is submitted. This Cookie expires 30 days after it is created.
-
-- Landing page path
-- Domain name
-- Device type: mobile or desktop
-- Language
-- Number of visits
-- Number of pages visited
-- Total time of site (total  visits)
-- Time on site (last visit)
-
-CF7PD is integrated with Google's Invisible reCAPTCHA. [Get Your Site Key and Secret Key](https://www.google.com/recaptcha/admin). It is required to replace all  your [submit] tags in your forms with [recaptcha_button].
-
 ## User Input Class Selectors
 
 ### Date Picker [Pikadate.js](http://amsul.ca/pickadate.js/date/):

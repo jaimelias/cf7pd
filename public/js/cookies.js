@@ -10,6 +10,13 @@ function set_cookies()
 }
 function set_affiliate()
 {
+	if(affiliate_change())
+	{
+		if(getCookie('affiliate') != affiliate_change())
+		{
+			setCookie('affiliate', affiliate_change(), 30);
+		}
+	}
 	if(getCookie('affiliate') == '')
 	{
 		if(typeof getUrlParameter('ref') !== 'undefined')

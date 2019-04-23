@@ -155,9 +155,8 @@ class Cf7pd {
 		$plugin_settings = new Cf7pd_Settings();
 		
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts', 11);
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'javascript_PersonFields');
-		
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'settings_init');
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'add_settings_page');
 		$this->loader->add_action( 'admin_notices', $plugin_settings, 'invalid_token');
@@ -172,17 +171,11 @@ class Cf7pd {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Cf7pd_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		
-		$this->loader->add_action( 'wpcf7_mail_sent', $plugin_public, 'pipedrive_submit', 10, 1 );
-		$this->loader->add_action( 'wp_footer', $plugin_public, 'footer' );
-
-		$this->loader->add_action( 'wpcf7_form_elements', $plugin_public, 'enable_shortcodes');
-		
-		$this->loader->add_filter( 'wpcf7_validate', $plugin_public, 'validate_recaptcha', 10, 2);		
+		$plugin_public = new Cf7pd_Public( $this->get_plugin_name(), $this->get_version());
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+		$this->loader->add_action('wpcf7_mail_sent', $plugin_public, 'pipedrive_submit', 10, 1);
+		$this->loader->add_action('wp_footer', $plugin_public, 'footer');
 	}
 
 	/**
