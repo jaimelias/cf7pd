@@ -78,17 +78,31 @@ run_cf7pd();
 if ( ! function_exists('write_log')) {
 	function write_log ( $log )  {
 		
-		if ( is_array( $log ) || is_object( $log ) ) {
-
-			$log .= ' '.sanitize_text_field($_SERVER['REQUEST_URI']);  
-			$log .= ' '.sanitize_text_field($_SERVER['HTTP_USER_AGENT']);  
-			error_log( print_r( $log, true ) );
-		}
-		else
+		$path = sanitize_text_field($_SERVER['REQUEST_URI']);
+		$user_agent = sanitize_text_field($_SERVER['HTTP_USER_AGENT']);
+		$output = '';
+		
+		if(is_array( $log ))
 		{
-			$log .= ' '.sanitize_text_field($_SERVER['REQUEST_URI']);  
-			$log .= ' '.sanitize_text_field($_SERVER['HTTP_USER_AGENT']);  
-			error_log( $log );
+			$std = (array) $log;
+			
+			if(!empty($std))
+			{
+				$log = json_encode($log);
+			}
+			else
+			{
+				$log = json_encode($log);
+			}
+		}	
+		else if(is_object( $log ))
+		{
+			$log = json_encode($log);
 		}
+		
+		$output .= $log;
+		$output .= ' '.$path;  
+		$output .= ' '.$user_agent;
+		error_log($output);
 	}
 }

@@ -168,35 +168,12 @@ class Cf7pd_Public {
 		{
 			wp_enqueue_script( 'picker-time-translation', plugin_dir_url( __FILE__ ).$picker_translation, array('jquery', 'picker-js'), '3.5.6', true);
 		}		
-	}
-	
-	public static function get_client_ip() {
-		$ipaddress = '';
-		if (getenv('HTTP_CLIENT_IP'))
-			$ipaddress = getenv('HTTP_CLIENT_IP');
-		else if(getenv('HTTP_X_FORWARDED_FOR'))
-			$ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-		else if(getenv('HTTP_X_FORWARDED'))
-			$ipaddress = getenv('HTTP_X_FORWARDED');
-		else if(getenv('HTTP_FORWARDED_FOR'))
-			$ipaddress = getenv('HTTP_FORWARDED_FOR');
-		else if(getenv('HTTP_FORWARDED'))
-		   $ipaddress = getenv('HTTP_FORWARDED');
-		else if(getenv('REMOTE_ADDR'))
-			$ipaddress = getenv('REMOTE_ADDR');
-		else
-			$ipaddress = 'UNKNOWN';
-		return $ipaddress;
 	}	
 	
 	public static function shortcode_widget($shortcode)
 	{
 		global $wp_registered_sidebars;
-		$count = 0;
-		
-		
-		//die(var_dump($wp_registered_sidebars));
-		
+		$count = 0;		
 		
 		foreach($wp_registered_sidebars as $k => $v)
 		{
@@ -281,20 +258,9 @@ class Cf7pd_Public {
 		$output['PIPEDRIVE_DEAL_title'] = $subject;
 		
 		Cf7pd_Curl::new_person($output);
-		//Cf7pd_Public::debug_log($output);
+		//write_log($output);
 	}
 	
-	public static function debug_log($log)
-	{
-		if ( is_array( $log ) || is_object( $log ) ) 
-		{
-			error_log( print_r( $log, true ) );
-		}
-		else
-		{
-			error_log( $log );
-		}
-	}
 	
 	public static function footer()
 	{

@@ -154,8 +154,14 @@ function responsive_timepicker()
 
 function pipedrive_submit()
 {
-	$('.wpcf7-form').submit(function(e){
+	var this_form_wrap = $('.wpcf7')[0];
+	var this_form = $(this_form_wrap).find('.wpcf7-form')[0];
+	
+	
+	$(this_form).find('.wpcf7-submit').click(function(e){
 		e.preventDefault();
+		$(this).prop('disabled', true);
+		
 		var exclude = ['country_code3', 'is_eu', 'country_tld', 'languages', 'country_flag', 'geoname_id', 'time_zone_current_time', 'time_zone_dst_savings', 'time_zone_is_dst'];
 		
 		$.getJSON('https://api.ipgeolocation.io/ipgeo?apiKey='+ipgeolocation_api(), function(data) {
@@ -186,8 +192,14 @@ function pipedrive_submit()
 			}
 		}).always(function(){
 
-			//console.log($('.wpcf7-form').serializeArray());
-			$('.wpcf7-form').unbind('submit').submit();
+			//console.log($(this_form).serializeArray());
+			$(this_form).submit();
 		});		
 	});
+	
+	
+	$(this_form_wrap).on('wpcf7invalid ', function(){
+		$(this_form).find('.wpcf7-submit').prop('disabled', false);
+	});
+	
 }
