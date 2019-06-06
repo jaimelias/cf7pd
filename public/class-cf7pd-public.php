@@ -229,11 +229,12 @@ class Cf7pd_Public {
 				$value = implode(", ", $value);
 			}
 		
+			$excluded = array('_wpcf7_is_ajax_call', '_wpcf7', '_wpcf7_version', '_wpcf7_locale', '_wpcf7_unit_tag', '_wpcf7_container_post', 'g-recaptcha-response');
 			$subject = str_replace($key, $value, $subject);
 			$clean_key = preg_replace('/PIPEDRIVE\_PERSON\_/i', '', $key);
 			$clean_key = preg_replace('/PIPEDRIVE\_DEAL\_/i', '', $key);
 
-			if($key != '_wpcf7_is_ajax_call' && $key != '_wpcf7' && $key != '_wpcf7_version' && $key != '_wpcf7_locale' && $key != '_wpcf7_unit_tag' && $key != '_wpcf7_container_post')
+			if(!in_array($key, $excluded))
 			{
 				if(preg_match('/PIPEDRIVE\_PERSON\_/i', $key))
 				{
@@ -245,10 +246,7 @@ class Cf7pd_Public {
 				}
 				else
 				{
-					if(!preg_match('/\_submit/i', $clean_key))
-					{
-						$notes .= '<strong>'.$key.':</strong> '.$value.'<br/>';
-					}
+					$notes .= '<strong>'.$key.':</strong>&nbsp;'.$value.'<br/>';
 				}
 			}
 		}
