@@ -10,24 +10,27 @@ function set_cookies()
 }
 function set_affiliate()
 {
-	if(affiliate_change())
+	if(typeof affiliate_change !== 'undefined')
 	{
-		if(getCookie('affiliate') != affiliate_change())
+		if(affiliate_change())
 		{
-			setCookie('affiliate', affiliate_change(), 30);
-		}
-	}
-	if(getCookie('affiliate') == '')
-	{
-		if(typeof getUrlParameter('ref') !== 'undefined')
-		{
-			if(getUrlParameter('ref') != '')
+			if(getCookie('affiliate') != affiliate_change())
 			{
-				setCookie('affiliate', getUrlParameter('ref'), 30);
+				setCookie('affiliate', affiliate_change(), 30);
 			}
-		}		
+		}
+		if(getCookie('affiliate') == '')
+		{
+			if(typeof getUrlParameter('ref') !== 'undefined')
+			{
+				if(getUrlParameter('ref') != '')
+				{
+					setCookie('affiliate', getUrlParameter('ref'), 30);
+				}
+			}		
+		}
+		console.log('affiliate: ' + getCookie('affiliate'));		
 	}
-	console.log('affiliate: ' + getCookie('affiliate'));
 }
 
 function set_device()
