@@ -24,13 +24,15 @@ CF7PD lets you send any data from the HTML or the URL params to Pipedrive.
 
 ### 1. CF7PD Settings Page
 
-![CF7PD configuration page](assets/settings-page.jpeg)
+![CF7PD settings page](assets/settings-page.png)
 
 ### 2. CF7PD Pipedrive Fields
 
 Open or create a new form. Use the "CF7PD Pipedrive Fields" button to insert your Pipedrive fields. 
 
-![CF7PD configuration page](assets/tag-generator.jpeg)
+![CF7PD tag page](assets/tag-page.png)
+
+![CF7PD usage page](assets/usage-page.png)
 
 ## User Input Class Selectors
 
