@@ -160,8 +160,53 @@ class Cf7pd_Curl
 		
 		return $filter;
 	}	
-	
-	public static function new_person($person_array)
+	public static function find_person($email, $form_array)
+	{
+		$output = array();
+		$token = Cf7pd_Curl::get_token();
+		$url = "https://api.pipedrive.com/v1/persons/find?api_token=".$token.'&term='.sanitize_email($email).'&limit=1&start=0&search_by_email=1';
+		$headers = array('Content-Type: application/json');
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		
+		if( !ini_get('safe_mode') )
+		{
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);		
+		}
+		
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$result = curl_exec($ch);
+		curl_close($ch);
+
+		$result = json_decode($result, true);
+
+		if(is_array($result))
+		{
+			if(count($result) > 0)
+			{
+				if(array_key_exists('success' , $result) && array_key_exists('data' , $result))
+				{
+					if($result['success'] === true && is_array($result['data']))
+					{
+						if(count($result['data']) > 0)
+						{
+							$output['data'] = array();
+							
+							$output['data']['id'] = $result['data'][0]['id'];
+							Cf7pd_Curl::new_deal($form_array, json_encode($output));
+						}
+					}
+				}
+			}
+		}
+
+		return $output;
+	}
+	public static function new_person($form_array)
 	{
 		$token = Cf7pd_Curl::get_token();
 		$url = "https://api.pipedrive.com/v1/persons?api_token=".$token;
@@ -170,7 +215,7 @@ class Cf7pd_Curl
 		$personFields = Cf7pd_Curl::key_PersonFields();
 		$output = array();
 		
-		foreach($person_array as $key => $value)
+		foreach($form_array as $key => $value)
 		{
 			$clean_key = preg_replace('/PIPEDRIVE\_PERSON\_/i', '', $key);
 			
@@ -201,23 +246,22 @@ class Cf7pd_Curl
 		curl_close($ch);
 
 		
-		Cf7pd_Curl::new_deal($person_array, $result);
-		//Cf7pd_Public::debug_log($result);
+		Cf7pd_Curl::new_deal($form_array, $result);
 	}
 	
-	public static function new_deal($person_array, $result)
+	public static function new_deal($form_array, $person)
 	{
 		$token = Cf7pd_Curl::get_token();
 		$url = "https://api.pipedrive.com/v1/deals?api_token=".$token;
 		$headers = array('Content-Type: application/json');		
-		$result = json_decode($result, true);
+		$person = json_decode($person, true);
 		$dealFields = Cf7pd_Curl::key_DealFields();
-		$person_id = $result['data']['id'];
+		$person_id = $person['data']['id'];
 		
 		$output = array();
 		$output['person_id'] = $person_id;			
 
-		foreach($person_array as $key => $value)
+		foreach($form_array as $key => $value)
 		{
 			$clean_key = preg_replace('/PIPEDRIVE\_DEAL\_/i', '', $key);
 			
@@ -249,13 +293,11 @@ class Cf7pd_Curl
 		
 		$result = json_decode($result, true);
 		$deal_id = $result['data']['id'];
-
-		Cf7pd_Curl::new_note($person_array, $person_id, $deal_id);
-		//Cf7pd_Public::debug_log($result);	
+		Cf7pd_Curl::new_note($form_array, $person_id, $deal_id);
 	}
 		
 	
-	public static function new_note($person_array, $person_id, $deal_id)
+	public static function new_note($form_array, $person_id, $deal_id)
 	{
 		$token = Cf7pd_Curl::get_token();
 		$url = "https://api.pipedrive.com/v1/notes?api_token=".$token;
@@ -263,7 +305,7 @@ class Cf7pd_Curl
 
 		$filter['deal_id'] = $deal_id;
 		$filter['person_id'] = $person_id;
-		$filter['content'] = $person_array['notes'];
+		$filter['content'] = $form_array['notes'];
 					
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);

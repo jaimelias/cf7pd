@@ -7,7 +7,8 @@ class Cf7pd_Settings
 	{
 		
 		//setting, id, sanitize
-		register_setting( 'cf7pd-settings', 'pipedrive_token', array('Cf7pd_Settings', 'sanitize_token'));
+		register_setting('cf7pd-settings', 'pipedrive_token', array(&$this, 'sanitize_token'));
+		register_setting('cf7pd-settings', 'pipedrive_code', 'sanitize_text_field');
 
 		//geolocation		
 		register_setting('cf7pd-settings', 'ipgeolocation', 'sanitize_text_field');			
@@ -22,7 +23,7 @@ class Cf7pd_Settings
 		add_settings_field( 
 			'pipedrive_field_0',
 			esc_html(__( 'Pipedrive Token', 'cf7pd' )), 
-			array('Cf7pd_Settings', 'pipedrive_field_0_render'), 
+			array(&$this, 'input'), 
 			'cf7pd-settings', 
 			'cf7pd-settings-section' 
 		);
@@ -30,14 +31,48 @@ class Cf7pd_Settings
 		add_settings_field( 
 			'ipgeolocation', 
 			esc_html(__( 'IPGeolocation API Key', 'cf7pd' )), 
-			array('Cf7pd_Settings', 'display_ipgeolocation'), 
+			array(&$this, 'display_ipgeolocation'), 
 			'cf7pd-settings', 
 			'cf7pd-settings-section' 
-		);				
+		);
+
+		add_settings_field( 
+			'pipedrive_code', 
+			esc_html(__( 'Autorization Code', 'cf7pd' )), 
+			array(&$this, 'input_code'), 
+			'cf7pd-settings', 
+			'cf7pd-settings-section' 
+		);		
 		
 	}
+
+	public static function input_code() {
+		
+		$protocol = 'http://';
+		$client_id = '6016a5d8bf0fa357';
+		
+		$redirect_url = 'https://pipedrive.jaimelias.workers.dev/';
+		$oauth = 'https://oauth.pipedrive.com/oauth/authorize';
+		$oauth .= '?client_id=' . $client_id;
+		$oauth .= '&redirect_uri='.$redirect_url;
+		$oauth .= '&state='.base64_encode(get_admin_url());		
+		
+		$value = get_option('pipedrive_code');
+		
+		if(isset($_GET['code']))
+		{
+			if($_GET['code'] != '')
+			{
+				$value = sanitize_text_field($_GET['code']);
+			}	
+		}
+				
+		?>
+		<label><input type='text' id="pipedrive_code" name='pipedrive_code' value='<?php echo ($value); ?>'  readonly /> <br/><a href="<?php echo esc_url($oauth); ?>">Get Autorization Code</a>
+		<?php
+	}
 	
-	public static function pipedrive_field_0_render(  ) { 
+	public static function input() { 
 		$options = get_option( 'pipedrive_token' );
 		?>
 		<input type='text' name='pipedrive_token[pipedrive_field_0]' value='<?php echo esc_html($options['pipedrive_field_0']); ?>'><br/> <small><?php echo esc_html(__('Visit your Pipedrive account and go to Settings > Personal > Other > API', 'cf7pd')); ?></small>
@@ -56,7 +91,7 @@ class Cf7pd_Settings
 	
 	public static function add_settings_page()
 	{
-		add_submenu_page( 'wpcf7', 'Pipedrive - Settings', 'Pipedrive', 'manage_options', 'pipedrive', array('Cf7pd_Settings', 'settings_page') );
+		add_submenu_page( 'wpcf7', 'Pipedrive - Settings', 'Pipedrive', 'manage_options', 'pipedrive', array(&$this, 'settings_page') );
 	}
 	public static function settings_page()
 	{ 

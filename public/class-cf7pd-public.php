@@ -209,11 +209,12 @@ class Cf7pd_Public {
 		$output = array();
 		$deals = array();
 		$notes = null;
-						
+		$person_exist = false;			
 		$submission = WPCF7_Submission::get_instance();
 		$subject = WPCF7_ContactForm::get_current();
 		$subject = $subject->prop('mail');
 		$subject = $subject['subject'];
+		$email = null;
 		
 		if ($submission) 
 		{
@@ -239,6 +240,11 @@ class Cf7pd_Public {
 				if(preg_match('/PIPEDRIVE\_PERSON\_/i', $key))
 				{
 					$output[$key] = $value;
+					
+					if($key == 'PIPEDRIVE_PERSON_email')
+					{
+						$email = $value;
+					}
 				}
 				elseif(preg_match('/PIPEDRIVE\_DEAL\_/i', $key))
 				{
@@ -250,13 +256,44 @@ class Cf7pd_Public {
 				}
 			}
 		}
+		
+
 				
 		$notes .= 'URL: '.esc_url($submission->get_meta('url'));	
 		$output['notes'] = $notes;
 		$output['PIPEDRIVE_DEAL_title'] = $subject;
 		
-		Cf7pd_Curl::new_person($output);
-		//write_log($output);
+		$person = Cf7pd_Curl::find_person($email, $output);
+		
+		if(is_array($person))
+		{
+			if(count($person) > 0)
+			{
+				if(array_key_exists('data', $person))
+				{
+					if(is_array($person['data']))
+					{
+						if(count($person['data']) > 0)
+						{
+							if(array_key_exists('id', $person['data']))
+							{
+								$person_exist = true;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if($person_exist === false)
+		{
+			Cf7pd_Curl::new_person($output);
+			//write_log('Person Does Not Exist');
+		}
+		else
+		{
+			//write_log('Person Exist');
+		}
 	}
 	
 	
@@ -279,5 +316,5 @@ class Cf7pd_Public {
 		$output = ob_get_contents();
 		ob_end_clean();
 		return $output;			
-	}	
+	}
 }
