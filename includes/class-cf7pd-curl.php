@@ -88,46 +88,49 @@ class Cf7pd_Curl
 		$filter_fields = array();
 		$excluded_fields = array('org_id', 'update_time', 'add_time', 'owner_id', 'visible_to', 'open_deals_count', 'next_activity_date', 'last_activity_date', 'id', 'lost_deals_count', 'closed_deals_count', 'activities_count', 'done_activities_count', 'undone_activities_count', 'email_messages_count', 'picture_id', 'last_incoming_mail_time', 'last_outgoing_mail_time', 'won_deals_count', 'creator_id', 'pipeline', 'status', 'stage_id', 'currency', 'close_time', 'person_id', 'user_id', 'creator_user_id', 'lost_reason', 'title', 'stage_change_time');		
 		
-		if(count($fields) > 0)
+		if(is_array($fields))
 		{
-			if(array_key_exists('data', $fields))
+			if(count($fields) > 0)
 			{
-				$fields = $fields['data'];
-				for($x = 0; $x < count($fields); $x++)
+				if(array_key_exists('data', $fields))
 				{
-					if(in_array($fields[$x]['key'], $excluded_fields))
+					$fields = $fields['data'];
+					for($x = 0; $x < count($fields); $x++)
 					{
-						//do nothing
-					}
-					else
-					{
-						$item = array();
-						$item['name'] = $fields[$x]['name'];			
-						$item['id'] = $initial.'_'.$fields[$x]['key'];
-						
-						if(substr($fields[$x]['key'], -7) == 'country')
+						if(in_array($fields[$x]['key'], $excluded_fields))
 						{
-							$item['type'] = 'select';
-						}
-						else if($fields[$x]['key'] == 'email')
-						{
-							$item['type'] = 'email';
+							//do nothing
 						}
 						else
 						{
-							if($fields[$x]['field_type'] == 'double')
+							$item = array();
+							$item['name'] = $fields[$x]['name'];			
+							$item['id'] = $initial.'_'.$fields[$x]['key'];
+							
+							if(substr($fields[$x]['key'], -7) == 'country')
 							{
-								$item['type'] = 'number';
+								$item['type'] = 'select';
+							}
+							else if($fields[$x]['key'] == 'email')
+							{
+								$item['type'] = 'email';
 							}
 							else
 							{
-								$item['type'] = 'text';
+								if($fields[$x]['field_type'] == 'double')
+								{
+									$item['type'] = 'number';
+								}
+								else
+								{
+									$item['type'] = 'text';
+								}
 							}
+							array_push($filter_fields, $item);	
 						}
-						array_push($filter_fields, $item);	
-					}
-				}				
-			}
+					}				
+				}
+			}			
 		}
 		
 		return $filter_fields;
@@ -153,9 +156,12 @@ class Cf7pd_Curl
 		$fields = $fields['data'];
 		$filter = array();
 		
-		for($x = 0; $x < count($fields); $x++)
+		if(is_array($fields))
 		{
-			array_push($filter, $fields[$x]['key']);
+			for($x = 0; $x < count($fields); $x++)
+			{
+				array_push($filter, $fields[$x]['key']);
+			}			
 		}
 		
 		return $filter;
